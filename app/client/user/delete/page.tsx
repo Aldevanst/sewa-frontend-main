@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react';
 import axios from 'axios';
+import { withAuth } from '@/app/components/withAuth';
 
 const DeleteUserForm = () => {
   const [userId, setUserId] = useState('');
@@ -37,4 +38,4 @@ const DeleteUserForm = () => {
   );
 };
 
-export default DeleteUserForm;
+export default withAuth(DeleteUserForm);

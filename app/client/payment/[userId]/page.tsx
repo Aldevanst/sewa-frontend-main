@@ -1,5 +1,6 @@
 'use client'
 import {generateRandomReferralCode , generateExpirationTime} from '@/app/components/referal'
+import { withAuth } from '@/app/components/withAuth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -35,4 +36,4 @@ const Payment = ({params}:{params:{userId:any}}) => {
     );
   };
   
-  export default Payment;
+  export default withAuth(Payment);

@@ -6,8 +6,9 @@ import building2Image from '../img/2.jpeg';
 import building3Image from '../img/3.jpeg';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { withAuth } from '@/app/components/withAuth';
 
-export default function DaftarGedung({params}:{params:{userID:any}}) {
+const DaftarGedung = ({params}:{params:{userID:any}}) => {
     const router = useRouter();
     const handleReturn = (e:any) => {
         router.push(`http://localhost:3000/client/user/${params.userID}`)
@@ -56,3 +57,4 @@ export default function DaftarGedung({params}:{params:{userID:any}}) {
   );
 }
 
+export default withAuth(DaftarGedung)

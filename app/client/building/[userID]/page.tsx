@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { withAuth } from '@/app/components/withAuth';
 
-export default function BuildingForm({ params }:{params:{userID:any}}) {
+const BuildingForm = ({ params }:{params:{userID:any}}) => {
   const router = useRouter();
   const [userData, setUserData] = useState({
     buildingName: '',
@@ -113,3 +114,4 @@ const handleSubmit =async (e:any) => {
       </div>
   );
 }
+export default withAuth(BuildingForm)

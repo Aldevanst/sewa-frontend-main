@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { withAuth } from '@/app/components/withAuth';
 
-export default function RentForm({params}:{params:{userId:any}}) {
+const RentForm = ({params}:{params:{userId:any}}) => {
   const router = useRouter();
   const [rentalData, setRentalData] = useState({
     orderDate: new Date().toISOString().split('T')[0],
@@ -78,3 +79,4 @@ export default function RentForm({params}:{params:{userId:any}}) {
 
   );
 }
+export default withAuth(RentForm);

@@ -1,10 +1,11 @@
 'use client'
+import { withAuth } from "@/app/components/withAuth";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function CheckReservation({ params }: { params: { userID: any } }) {
+const CheckReservation = ({ params }: { params: { userID: any } }) => {
     const router = useRouter();
     const [checkInfo, setCheckInfo] = useState([]);
   
@@ -75,4 +76,4 @@ export default function CheckReservation({ params }: { params: { userID: any } }
     );
   }
 
-  
+export default withAuth(CheckReservation)
