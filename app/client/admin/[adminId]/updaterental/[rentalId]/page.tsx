@@ -35,6 +35,7 @@ const UpdateUserForm = ({ params }:{params:{rentalId:any,adminId:any}}) => {
   };
 
   return (
+  <div style={{display:'flow'}}>
     <div style={{display:'flex', justifyContent:'center'}}>
       
       <form onSubmit={handleSubmit} >
@@ -45,15 +46,17 @@ const UpdateUserForm = ({ params }:{params:{rentalId:any,adminId:any}}) => {
           <input type="date" name="eventDate" value={updatedRentalData.eventDate} onChange={handleUpdate} />
         </label>
        <br /><br />
-        <button type="submit">Perbarui Pengguna</button>
-        <button style={{marginLeft:'20px'}} onClick={handleReturn}>Kembali Ke Daftar</button>
+        <center><button type="submit">Perbarui Pengguna</button></center>
+        
       <br /><br />
       {isUpdated && <p>Data pengguna berhasil diperbarui!</p>}
       </form>
       
       
-      
     </div>
+    <center><button  onClick={handleReturn}>Kembali Ke Daftar</button></center>
+      </div>
+    
   );
 };
 
