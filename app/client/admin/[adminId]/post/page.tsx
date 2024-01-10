@@ -32,12 +32,13 @@ export default function CreateAdmin({params}:{params:{adminId:any}}) {
     }
   };
 
-  return (<div style={{display:'flex',justifyContent:'center'}}> 
+  return (
+  <div style={{display:'flex',justifyContent:'center'}}> 
     <form onSubmit={handleSubmit}>
       <h2><center>Sign Up</center></h2><br />
       <label>
         Nama Admin:
-        <input type="text" name="name" value={adminData.adminName} onChange={handleChange} />
+        <input type="text" name="adminName" value={adminData.adminName} onChange={handleChange} />
       </label>
       <br /><br />
       <label>
@@ -54,9 +55,9 @@ export default function CreateAdmin({params}:{params:{adminId:any}}) {
         Nomor Telepon:
         <input type="text" name="phoneNumber" value={adminData.phoneNumber} onChange={handleChange} />
       </label>
-      <br />
+      <br /><br />
       <button type="submit">Kirim Data</button>
-      <button onClick={handleReturn}>Kembali</button>
+      <button type='reset' onClick={handleReturn}style={{marginLeft:'20px'}}>Kembali</button>
     </form></div>
    
   );
