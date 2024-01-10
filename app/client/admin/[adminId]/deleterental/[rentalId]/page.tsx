@@ -29,7 +29,6 @@ const DeleteUserForm = ({ params }:{params:{rentalId:any,adminId:any}}) => {
   };
 
   return (
-    <div style={{display:'flow'}}>
       <div style={{marginTop: "30px"}}>
       <form onSubmit={handleSubmit}>
         <center><label>
@@ -37,13 +36,11 @@ const DeleteUserForm = ({ params }:{params:{rentalId:any,adminId:any}}) => {
         </label>
         <br /><br />
         <button type="submit">Ya</button>
-        <br />
+        <button type='reset' onClick={handleReturn}>Tidak</button>
         </center>
       </form>
       
       {isDeleted && <p>Reservasi berhasil dihapus!</p>}
-    </div><br />
-    <center><button onClick={handleReturn}>Tidak</button></center>
     </div>
     
   );

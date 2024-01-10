@@ -66,7 +66,7 @@ const UpdateUserForm = ({params}:{params:{adminId:any}}) => {
         </label>
         <br /><br />
         <button type="submit">Perbarui Pengguna</button>
-        <button style={{marginLeft:'20px'}} onClick={handleReturn}>Kembali Ke Panel</button>
+        <button type='reset' style={{marginLeft:'20px'}} onClick={handleReturn}>Kembali Ke Panel</button>
       </form>
       
       
