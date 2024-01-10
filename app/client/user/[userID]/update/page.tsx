@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { withAuth } from '@/app/components/withAuth';
 
-const UpdateUserForm = ({params}:{params:{userID:any}}) => {
+const UpdateUserForm = ({ params }: { params: { userID: any } }) => {
   const router = useRouter();
   const [updatedUserData, setUpdatedUserData] = useState({
     name: '',
@@ -13,33 +13,48 @@ const UpdateUserForm = ({params}:{params:{userID:any}}) => {
     phoneNumber: ''
   });
   const [isUpdated, setIsUpdated] = useState(false);
-  
-  const handleReturn = (e:any) => {
-    router.push(`http://localhost:3000/client/user/${params.userID}`)
-  }
 
-  const handleInputChange = (e:any) => {
-    setUpdatedUserData({ ...updatedUserData, [e.target.name]: e.target.value });
+  const handleReturn = (e: any) => {
+    router.push(`http://localhost:3000/client/user/${params.userID}`);
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setUpdatedUserData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(`http://localhost:3001/user/${params.userID}/update`, updatedUserData);
+      // Create a new object with only non-empty values
+      const updatedDataUser = Object.fromEntries(
+        Object.entries(updatedUserData).filter(([_, v]) => v !== '')
+      );
+
+      const response = await axios.patch(
+        `http://localhost:3001/user/${params.userID}/update`,
+        updatedDataUser
+      );
+
       const updatedUserResponse = response.data;
       console.log('Updated user:', updatedUserResponse);
       setIsUpdated(true);
-      router.push(`http://localhost:3000/client/user/${params.userID}`)
+      setTimeout(() => {
+        router.push(`http://localhost:3000/client/user/${params.userID}`)
+      },1000)
+      
     } catch (error) {
       console.error('Error updating user:', error);
     }
   };
 
   return (
-    <div style={{display:'flow', justifyContent:'center'}}>
-      
-      <form onSubmit={handleSubmit} >
-        <h2>Update Data Anda</h2>        
+    <div style={{ display: 'flow', justifyContent: 'center' }}>
+      <form onSubmit={handleSubmit}>
+        <h2>Update Data Anda</h2>
         <br />
         <label>
           Nama:
@@ -62,14 +77,13 @@ const UpdateUserForm = ({params}:{params:{userID:any}}) => {
         </label>
         <br />
         <button type="submit">Perbarui Pengguna</button>
-        <button type='reset' onClick={handleReturn}>Main Page</button>
+        <button type="reset" onClick={handleReturn}>
+          Main Page
+        </button>
       </form>
-      
-      
-      
+
       {isUpdated && <p>Data pengguna berhasil diperbarui!</p>}
     </div>
-    
   );
 };
 

@@ -19,17 +19,28 @@ const UpdateUserForm = ({params}:{params:{adminId:any}}) => {
   }
 
   const handleInputChange = (e:any) => {
-    setUpdatedAdminData({ ...updatedAdminData, [e.target.name]: e.target.value });
+    const { name , value } = e.target;
+    setUpdatedAdminData((prevData) => ({
+      ...prevData,
+      [name]:value
+    }));
   };
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
+    const updatedDataAdmin = Object.fromEntries(
+      Object.entries(updatedAdminData).filter(([_, v]) => v !== '')
+    );
+
     try {
-      const response = await axios.patch(`http://localhost:3001/user/${params.adminId}/update`, updatedAdminData);
-      const updatedUserResponse = response.data;
-      console.log('Updated admin:', updatedUserResponse);
+      const response = await axios.patch(`http://localhost:3001/user/${params.adminId}/update`, updatedDataAdmin);
+      const updatedAdminResponse = response.data;
+      console.log('Updated admin:', updatedAdminResponse);
       setIsUpdated(true);
-      router.push(`http://localhost:3000/client/admin/${params.adminId}`)
+      setTimeout(() => {
+        router.push(`http://localhost:3000/client/admin/${params.adminId}`)
+      },1000)
+      
     } catch (error) {
       console.error('Error updating admin:', error);
     }

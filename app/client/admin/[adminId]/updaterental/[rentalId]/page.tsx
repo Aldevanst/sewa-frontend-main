@@ -28,7 +28,7 @@ const UpdateUserForm = ({ params }:{params:{rentalId:any,adminId:any}}) => {
       console.log('Updated data:', rentalResponse);
       setIsUpdated(true);
       setTimeout(() => {
-        router.push(`http://localhost:3000/client/admin/${params.adminId}/getrental`)}, 1500);
+        router.push(`http://localhost:3000/client/admin/${params.adminId}/getrental`)}, 1000);
       
     } catch (error) {
       console.error('Error updating user:', error);
@@ -49,7 +49,7 @@ const UpdateUserForm = ({ params }:{params:{rentalId:any,adminId:any}}) => {
         <center><button type="submit">Perbarui Pengguna</button></center>
         <button type='reset' onClick={handleReturn}>Kembali Ke Daftar</button>
       <br /><br />
-      {isUpdated && <p>Data pengguna berhasil diperbarui!</p>}
+      {isUpdated && <p>Data Reservasi berhasil diperbarui!</p>}
       </form>
       
       
