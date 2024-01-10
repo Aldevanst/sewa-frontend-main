@@ -26,13 +26,15 @@ const Payment = ({params}:{params:{userId:any}}) => {
     };
   
     return (
-      <div>
-        <p>Referal Code: {referralCode}</p>
-        <p>Expiration Time: {expirationTime.toLocaleString()}</p>
-        {/* Tampilkan atau gunakan referralCode sesuai kebutuhan Anda */}
-        <button onClick={handleReferral}>Bayar Sekarang</button>
-        {submitted && <p>Pembayaran Sukses!!</p>}
-      </div>
+      <div style={{ display: 'flow', justifyContent: 'space-evenly', margin: '100px' }}>
+      <h1 >Referral Code: {referralCode}</h1>
+      <h2 >Expiration Time: {expirationTime.toLocaleString()}</h2>
+
+      
+      <button onClick={handleReferral}>Bayar Sekarang</button>
+
+      {submitted && <p>Pembayaran Sukses!!</p>}
+    </div>
     );
   };
   
