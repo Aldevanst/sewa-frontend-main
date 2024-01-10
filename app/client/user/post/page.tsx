@@ -16,6 +16,10 @@ export default function CreateUser() {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  const handleReturn = () => {
+    router.push(`http://localhost:3000/client/login`)
+  }
+
   const handleSubmit = async (e:any) => {
     e.preventDefault();
     try {
@@ -53,6 +57,7 @@ export default function CreateUser() {
       </label>
       <br />
       <button type="submit">Kirim Data</button>
+      <button type='reset' onClick={handleReturn} style={{marginLeft:'20px'}}>Kembali</button>
     </form>
   );
 }

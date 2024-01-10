@@ -1,10 +1,11 @@
 'use client'
 
+import { withAuthAdmin } from "@/app/components/withAuthAdmin";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function GetUser({params}:{params:{adminId:any}}) {
+const GetUser = ({params}:{params:{adminId:any}}) => {
   const router = useRouter();
   const [userInfo, setUserInfo] = useState([]);
   useEffect(() => {
@@ -46,3 +47,4 @@ export default function GetUser({params}:{params:{adminId:any}}) {
     <center><button onClick={handleReturn}>Kembali Ke Panel</button></center>
   </>)
 }
+export default withAuthAdmin(GetUser)

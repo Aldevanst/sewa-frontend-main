@@ -6,30 +6,30 @@ import { useState } from 'react';
 
 const Login = () => {
   const router = useRouter();
-  const [username, setUsername] = useState('');
+  const [adminname, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async (e:any) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/auth/login/user', {
-        username,
+      const response = await axios.post('http://localhost:3001/auth/login/admin', {
+        adminname,
         password,
       });
       const res = response.data
-      const { access_token } = res
-      console.log('test:',{access_token})
+      const {access_token} = res
       localStorage.setItem('token', access_token)
+      localStorage.setItem('admintoken', access_token)
       console.log('local storage:',localStorage)
-      const idRes = res.userID
-      if (idRes.ok) {
+      const idRes = res.adminId
+      if (res.ok) {
         // Save the token or perform any other actions on successful login
-        console.log('Login successful', idRes);
+        console.log('Login successful', res);
       } else {
         // Handle error responses
-        console.error('Login failed', idRes);
+        console.error('Login failed', res);
       }
-      router.push(`http://localhost:3000/client/user/${idRes}`)
+      router.push(`http://localhost:3000/client/admin/${idRes}`)
     } catch (error) {
       console.error('An error occurred during login', error);
     }
@@ -38,12 +38,12 @@ const Login = () => {
   return (
     <div>
       <form onSubmit={handleLogin}>
-      <h1>Login</h1>
+      <h1>Login Admin</h1>
       <label>
         Username:
         <input
           type="text"
-          value={username}
+          value={adminname}
           onChange={(e) => setUsername(e.target.value)}
         />
       </label>
@@ -60,7 +60,6 @@ const Login = () => {
       <button type='submit'>Login</button>
       </form>
       <br />
-      <Link href={`/client/user/post`}>Belum Punya Akun?</Link>
     </div>
   );
 };

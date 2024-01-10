@@ -1,8 +1,8 @@
-
 'use client'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { withAuthAdmin } from '@/app/components/withAuthAdmin';
 
 const AdminTable = ({params}:{params:{adminId:any}}) => {
   const router = useRouter();
@@ -56,4 +56,4 @@ const AdminTable = ({params}:{params:{adminId:any}}) => {
   );
 };
 
-export default AdminTable;
+export default withAuthAdmin(AdminTable);

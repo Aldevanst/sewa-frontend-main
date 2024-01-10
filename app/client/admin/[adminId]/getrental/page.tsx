@@ -1,10 +1,11 @@
 'use client'
 
+import { withAuthAdmin } from "@/app/components/withAuthAdmin";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function GetRental({params}:{params:{adminId:any}}) {
+const GetRental = ({params}:{params:{adminId:any}}) => {
   const router = useRouter();
   // const [rentalId, setRentalId] = useState();
   
@@ -65,3 +66,4 @@ export default function GetRental({params}:{params:{adminId:any}}) {
     <center><button onClick={handleReturn}>Kembali ke Panel Utama</button></center>
   </>)
 }
+export default withAuthAdmin(GetRental)

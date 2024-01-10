@@ -1,9 +1,33 @@
 'use client'
 import Head from 'next/head';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { withAuthAdmin } from '@/app/components/withAuthAdmin'
+import { useRouter } from 'next/navigation';
 
 
-export default function AdminPanel({ params }:{params:{adminId:any}}) {
+const AdminPanel = ({ params }:{params:{adminId:any}}) => {
+  const router =useRouter();
+  const [adminInfo, setAdminInfo] = useState('')
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const query = await fetch(`http://localhost:3001/admin/${params.adminId}`);
+        const response = await query.json();
+        setAdminInfo(response);
+        console.log("response from API :", response);
+      } catch (error) {
+        console.error('An error occurred while fetching user data', error);
+      }
+    }
+    getData();
+  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("admintoken")
+    console.log(localStorage)
+    router.push(`http://localhost:3000/`)
+  }
   return (
     <div >
       <Head>
@@ -18,9 +42,10 @@ export default function AdminPanel({ params }:{params:{adminId:any}}) {
         
         
       </nav>
-
+<button onClick={handleLogout}>Logout</button>
       <main >
-        <h1 ><center>Manage List</center></h1>
+        <center><h1 >Manage List</h1>
+        <h2>"{adminInfo.adminName}"</h2></center>
         <br />
         <ul>
           <li><Link href={`${params.adminId}/getrental`}>Daftar List Reservasi</Link></li>
@@ -41,4 +66,5 @@ export default function AdminPanel({ params }:{params:{adminId:any}}) {
     </div>
   );
 }
+export default withAuthAdmin(AdminPanel)
 

@@ -1,49 +1,63 @@
 'use client'
 import Head from 'next/head';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { withAuth } from '@/app/components/withAuth';
+import { useRouter } from 'next/navigation';
 
+const Home = ({params}:{params:{userID:any}}) => {
+  const router = useRouter();
+  const [userInfo, setUserInfo] = useState('');
+  
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const query = await fetch(`http://localhost:3001/user/${params.userID}`);
+        const response = await query.json();
+        setUserInfo(response);
+        console.log("response from API :", response);
+      } catch (error) {
+        console.error('An error occurred while fetching user data', error);
+      }
+    }
+    getData();
+  }, []);
+  
+    const handleLogout = () => {
+      localStorage.removeItem('token')
+      console.log(localStorage)
+      router.push(`http://localhost:3000/`)
+    }
 
-export default function Home({params}:{params:{userID:any}}) {
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const query = await fetch('http://localhost:3001/user/get');
-  //     const response = await query.json();
-  //     console.log("respone from API :", response)
-  //     setUserInfo(response)
-  //   }
-  //   getData();
-  // },[])
   return (
-    <div style={{background:"linear-gradient(0deg,rgb(10, 60, 224),rgba(232, 116, 214, 0.728),rgba(5, 177, 186, 0.774))", width:'auto',height:'110vh'}}>
+    <div>
       <Head>
         <title>Next.js Ideal Main Page</title>
         <meta name="description" content="Contoh main page ideal dengan Next.js" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main >
-        <h1 ><center>Selamat datang di Penyewaan Gedung</center></h1>
-        <h2>""</h2>
+      <main>
+        <center><h1>Selamat datang di Penyewaan Gedung</h1>
+        <h2>Customer : "{userInfo.name}"</h2></center>
+       <button onClick={handleLogout}>Logout</button>
         <br />
-        <ul style={{fontSize:'35px'}}>
+        <ul style={{ fontSize: '35px' }}>
           <li><Link href={`/client/building/${params.userID}`}>Buat Reservasi</Link></li><br />
-          <li><Link href={`/client/user/${params.userID}/update`}>Edit Prodile</Link></li><br />
+          <li><Link href={`/client/user/${params.userID}/update`}>Edit Profil</Link></li><br />
           <li><Link href={`/client/building/${params.userID}/daftar`}>Daftar Gedung</Link></li><br />
           <li><Link href={`/client/user/${params.userID}/check`}>Check Reservasi</Link></li><br />
         </ul>
-        
 
-        <div >
-         
-         
+        <div>
+
         </div>
       </main>
 
-      <footer style={{display:'flex', justifyContent:'center',width:'auto'  ,height:'100vh'}}>
+      <footer style={{ display: 'flex', justifyContent: 'center', width: 'auto', height: '100vh' }}>
         <h3>© {new Date().getFullYear()} Next.js Ideal Main Page</h3>
       </footer>
     </div>
   );
 }
-
+export default withAuth(Home)

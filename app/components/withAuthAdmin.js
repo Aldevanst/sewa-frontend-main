@@ -2,12 +2,12 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export const withAuth = (WrappedComponent) => {
+export const withAuthAdmin = (WrappedComponent) => {
   return (props) => {
     const router = useRouter();
 
     useEffect(() => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('admintoken');
 
       if (!token) {
         // Redirect atau navigasi ke halaman login jika tidak ada token

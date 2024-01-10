@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { withAuthAdmin } from '@/app/components/withAuthAdmin';
 
-export default function CreateAdmin({params}:{params:{adminId:any}}) {
+const CreateAdmin = ({params}:{params:{adminId:any}}) => {
   const router = useRouter();
   const [adminData, setAdminData] = useState({
     adminName: '',
@@ -62,3 +63,4 @@ export default function CreateAdmin({params}:{params:{adminId:any}}) {
    
   );
 }
+export default withAuthAdmin(CreateAdmin)

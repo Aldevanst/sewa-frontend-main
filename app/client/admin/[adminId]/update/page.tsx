@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { withAuthAdmin } from '@/app/components/withAuthAdmin';
 
 const UpdateUserForm = ({params}:{params:{adminId:any}}) => {
   const router = useRouter();
@@ -75,4 +76,4 @@ const UpdateUserForm = ({params}:{params:{adminId:any}}) => {
   );
 };
 
-export default UpdateUserForm;
+export default withAuthAdmin(UpdateUserForm);
