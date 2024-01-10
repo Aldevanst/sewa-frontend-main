@@ -36,7 +36,7 @@ export default function AdminPanel({ params }:{params:{adminId:any}}) {
       </main>
 
       <footer style={{display:'flex', justifyContent:'center'}}>
-        <h3>© {new Date().getFullYear()} Next.js Ideal Main Page</h3>
+        <h3>© {new Date().getFullYear()}  Ideal Admin Panel</h3>
       </footer>
     </div>
   );

@@ -35,7 +35,7 @@ const UpdateUserForm = ({params}:{params:{userID:any}}) => {
   };
 
   return (
-    <div><div style={{display:'flow', justifyContent:'center'}}>
+    <div style={{display:'flow', justifyContent:'center'}}>
       
       <form onSubmit={handleSubmit} >
         <h2>Update Data Anda</h2>        
@@ -61,14 +61,12 @@ const UpdateUserForm = ({params}:{params:{userID:any}}) => {
         </label>
         <br />
         <button type="submit">Perbarui Pengguna</button>
-        
+        <button type='reset' onClick={handleReturn}>Main Page</button>
       </form>
       
       
       
       {isUpdated && <p>Data pengguna berhasil diperbarui!</p>}
-    </div>
-    <div style={{ display:'flow',marginLeft:'20px'}}><button onClick={handleReturn}>Main Page</button></div>
     </div>
     
   );

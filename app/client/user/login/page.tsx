@@ -14,7 +14,7 @@ export default function GetUser() {
     }
     getData();
   },[])
-
+console.log('test:',userInfo)
   return(
   <>
   <nav><Link href={`/client/user/post`}>Buat Akun</Link></nav>
