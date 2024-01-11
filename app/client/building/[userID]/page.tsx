@@ -1,11 +1,13 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { withAuth } from '@/app/components/withAuth';
+import { hasUncaughtExceptionCaptureCallback } from 'process';
 
 const BuildingForm = ({ params }:{params:{userID:any}}) => {
   const router = useRouter();
+  
   const [userData, setUserData] = useState({
     buildingName: '',
     buildingAddress: '',
@@ -18,7 +20,20 @@ const BuildingForm = ({ params }:{params:{userID:any}}) => {
     { name: 'Gedung Serbaguna Sidoarjo', buildingAddress : 'Sidoarjo' ,price: 'Rp8.000.000' },
     { name: 'Gedung Ksatria', buildingAddress : 'Surabaya' ,price: "Rp7.000.000" },
   ];
-
+  const [userInfo , setUserInfo] = useState({})
+useEffect(() => {
+  const getData = async () => {
+    try {
+      const query = await fetch(`http://localhost:3001/user/${params.userID}`);
+      const response = await query.json();
+      setUserInfo(response);
+      console.log("response from API :", response);
+    } catch (error) {
+      console.error('An error occurred while fetching user data', error);
+    }
+  }
+  getData();
+}, []);
   const handleChangeUser = (e:any) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -38,6 +53,7 @@ const handleReturn = (e:any) => {
 }
 
 const [showSubmitButton, setShowSubmitButton] = useState(true);
+
 
 const handleSubmit =async (e:any) => {
   e.preventDefault();
@@ -67,8 +83,8 @@ const handleSubmit =async (e:any) => {
     <form onSubmit={handleNewSubmit}>
       <h1>Form Reservasi</h1>
       <label>
-        ID Pemesan:
-        <input type="text" value={params.userID} readOnly />
+        Nama Pemesan:
+        <input type="text" value={userInfo.name} readOnly />
       </label>
       <br />
       <label>

@@ -12,6 +12,21 @@ const RentForm = ({params}:{params:{userId:any}}) => {
     eventDate: '',
   })
 
+  const [userInfo , setUserInfo] = useState({})
+useEffect(() => {
+  const getData = async () => {
+    try {
+      const query = await fetch(`http://localhost:3001/user/${params.userId}`);
+      const response = await query.json();
+      setUserInfo(response);
+      console.log("response from API :", response);
+    } catch (error) {
+      console.error('An error occurred while fetching user data', error);
+    }
+  }
+  getData();
+}, []);
+
   const [buildingIds, setBuildingIds] = useState('')
   useEffect(() => {
     const buildingData = async () => {
@@ -29,12 +44,28 @@ const RentForm = ({params}:{params:{userId:any}}) => {
     }
     buildingData();
   },[]);
-  
+
+  const [buildingInfo , setBuildingInfo] = useState({})
+useEffect(() => {
+  const getData = async () => {
+    try {
+      const query = await fetch(`http://localhost:3001/building/${buildingIds}`);
+      const response = await query.json();
+      setBuildingInfo(response);
+      console.log("response from API :", response);
+    } catch (error) {
+      console.error('An error occurred while fetching user data', error);
+    }
+  }
+  getData();
+}, [buildingIds]);
+
   const handleChange = (e:any) => {
     setRentalData({ ...rentalData, [e.target.name]: e.target.value });
   }
 
-
+      console.log('id bangunan:',buildingIds)
+      console.log('info bangunanL',buildingInfo)
   const handleSubmit = async (e:any) => {
     e.preventDefault();
     try {
@@ -56,11 +87,16 @@ const RentForm = ({params}:{params:{userId:any}}) => {
       <form className='form' onSubmit={handleSubmit}>
       <h2><center>Tambahkan Waktu Reservasi</center></h2>
       <label>
-        ID Pemesan:
-        <input type="text" value={params.userId} readOnly />
+        Nama Pemesan:
+        <input type="text" value={userInfo.name} readOnly />
       </label>
       <label>
         <input type="hidden" value={buildingIds} readOnly />
+      </label>
+      <br />
+      <label>
+        Nama Gedung:
+        <input type="text" value={buildingInfo.buildingName} readOnly />
       </label>
       <br />
       <label>

@@ -22,7 +22,7 @@ const Login = () => {
       localStorage.setItem('admintoken', access_token)
       console.log('local storage:',localStorage)
       const idRes = res.adminId
-      if (res.ok) {
+      if (response.data) {
         // Save the token or perform any other actions on successful login
         console.log('Login successful', res);
       } else {
@@ -31,7 +31,7 @@ const Login = () => {
       }
       router.push(`http://localhost:3000/client/admin/${idRes}`)
     } catch (error) {
-      console.error('An error occurred during login', error);
+      console.error('An error occurred during login', );
     }
   };
 

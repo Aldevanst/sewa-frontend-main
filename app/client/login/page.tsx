@@ -22,12 +22,12 @@ const Login = () => {
       localStorage.setItem('token', access_token)
       console.log('local storage:',localStorage)
       const idRes = res.userID
-      if (idRes.ok) {
+      if (response.data) {
         // Save the token or perform any other actions on successful login
-        console.log('Login successful', idRes);
+        console.log('Login successful', res);
       } else {
         // Handle error responses
-        console.error('Login failed', idRes);
+        console.error('Login failed', res);
       }
       router.push(`http://localhost:3000/client/user/${idRes}`)
     } catch (error) {
